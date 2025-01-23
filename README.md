@@ -3,7 +3,7 @@
 > The Patient Medicine and Appointment Management System is a full-stack web application designed to simplify healthcare management by allowing patients to register, book appointments with doctors, and manage their prescribed medications. 
 > The application was developed at [GUVI](https://www.guvi.in/) as part of the Java Full Stack Developer Course.
 
-# 👉 [Click here](https://drive.google.com/file/d/1dxJSINnWaDsL5d4OVVI40xPnkzlVe9K7/view?usp=sharing) to go through the working demo of this application
+# 👉 [Click here](https://drive.google.com/file/d/15HlKAZJDJNBfBj0l7jsRZshFGvGUHzXL/view?usp=sharing) to go through the working demo of this application
 
 # Features
 
@@ -47,19 +47,19 @@
 # Overview of Our work
 
 ## **Login Module** 
-![Login Module](https://github.com/pranav13vishal/Patient-Appointment-Application/blob/33b6627dc71c7ece1134cfd0a3f431faf6b35c1b/assets/auth.png)
+![Login Module](https://github.com/pranav13vishal/Patient-Appointment-Application/blob/9a18db428229d590bab25a6a2b606e07fc1542cc/assets/auth.png)
 
 ## **Patient Module** 
-![Swagger Module*](https://github.com/pranav13vishal/Patient-Appointment-Application/blob/33b6627dc71c7ece1134cfd0a3f431faf6b35c1b/assets/patient.png)
+![Swagger Module*](https://github.com/pranav13vishal/Patient-Appointment-Application/blob/9a18db428229d590bab25a6a2b606e07fc1542cc/assets/patient.png)
 
 ## **Doctor Module**
-![User Module](https://github.com/pranav13vishal/Patient-Appointment-Application/blob/33b6627dc71c7ece1134cfd0a3f431faf6b35c1b/assets/doctor.png)
+![User Module](https://github.com/pranav13vishal/Patient-Appointment-Application/blob/9a18db428229d590bab25a6a2b606e07fc1542cc/assets/doctor.png)
 
 ## **Appointment Module**
-![Admin Module](https://github.com/pranav13vishal/Patient-Appointment-Application/blob/33b6627dc71c7ece1134cfd0a3f431faf6b35c1b/assets/appointment.png)
+![Admin Module](https://github.com/pranav13vishal/Patient-Appointment-Application/blob/9a18db428229d590bab25a6a2b606e07fc1542cc/assets/appointment.png)
 
 ## **Medication Module** 
-![Home Module*](https://github.com/pranav13vishal/Patient-Appointment-Application/blob/33b6627dc71c7ece1134cfd0a3f431faf6b35c1b/assets/medication.png)
+![Home Module*](https://github.com/pranav13vishal/Patient-Appointment-Application/blob/9a18db428229d590bab25a6a2b606e07fc1542cc/assets/medication.png)
 
 
 
@@ -68,7 +68,7 @@
 1. Clone our Project into your system
     - Go to the folder location you want to clone
     - Open terminal 
-    - Run command ``` git clone https://github.com/pranav13vishal/Patient-Appointment-Application.git```
+    - Run command ``` https://github.com/pranav13vishal/Patient-Appointment-Application.git```
 2. Open your preferred Integrated Development Environment (IDE) such as Spring Tool Suite (STS) or IntelliJ IDEA.
 3. Import the cloned project into your IDE:
    - In IntelliJ IDEA, click on "File" in the top menu, then select "Open"
