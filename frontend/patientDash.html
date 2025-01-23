@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Doctors</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .search-bar {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .search-bar input {
+            padding: 8px;
+            margin-right: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 200px;
+        }
+        .search-bar button {
+            background-color: #007bff;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .search-bar button:hover {
+            background-color: #0056b3;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        .book-button {
+            background-color: #28a745;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .book-button:hover {
+            background-color: #218838;
+        }
+        .message {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e9ecef;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            display: none;
+        }
+    </style>
+    <script>
+        // Function to fetch and display doctor details
+        async function fetchDoctors() {
+            try {
+                const response = await fetch('http://localhost:8081/api/doctors/get-all-doctors');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch doctor data');
+                }
+
+                const doctors = await response.json();
+                displayDoctors(doctors);
+            } catch (error) {
+                console.error('Error fetching doctor data:', error);
+                alert('An error occurred while fetching the doctor data.');
+            }
+        }
+
+        // Function to search for doctors
+        async function searchDoctors() {
+            try {
+                const name = document.getElementById('searchName').value;
+                const specialization = document.getElementById('searchSpecialization').value;
+
+                const queryParams = new URLSearchParams();
+                if (name) queryParams.append('name', name);
+                if (specialization) queryParams.append('specialization', specialization);
+
+                const response = await fetch(`http://localhost:8081/api/patients/search?${queryParams.toString()}`);
+                if (!response.ok) {
+                    throw new Error('Failed to search doctor data');
+                }
+
+                const doctors = await response.json();
+                displayDoctors(doctors);
+            } catch (error) {
+                console.error('Error searching doctor data:', error);
+                alert('An error occurred while searching for the doctor data.');
+            }
+        }
+
+        // Function to display doctor details in the table
+        function displayDoctors(doctors) {
+            const doctorTableBody = document.getElementById('doctorTableBody');
+            doctorTableBody.innerHTML = '';
+
+            doctors.forEach(doctor => {
+                const row = document.createElement('tr');
+
+                row.innerHTML = `
+                    <td>${doctor.name}</td>
+                    <td>${doctor.specialization}</td>
+                    <td>${doctor.email}</td>
+                    <td>${doctor.phone}</td>
+                    <td>${doctor.location}</td>
+                    <td><button class="book-button" onclick="bookDoctor('${doctor.id}', '${doctor.name}')">Book</button></td>
+                `;
+
+                doctorTableBody.appendChild(row);
+            });
+        }
+
+        // Function to handle booking a doctor
+        async function bookDoctor(doctorId, doctorName) {
+            const patientId = 1; // Replace with actual patient ID from your application context
+            const appointmentDate = prompt(`Enter appointment date for Dr. ${doctorName} (YYYY-MM-DD):`);
+            const appointmentTime = prompt(`Enter appointment time for Dr. ${doctorName} (HH:MM):`);
+
+            if (!appointmentDate || !appointmentTime) {
+                alert('Appointment date and time are required.');
+                return;
+            }
+
+            const appointmentData = {
+                patient: { id: patientId },
+                doctor: { id: doctorId },
+                date: appointmentDate,
+                time: appointmentTime
+            };
+
+            try {
+                const response = await fetch('http://localhost:8081/api/appointments/book', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(appointmentData)
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to book appointment');
+                }
+
+                alert(`Appointment booked successfully with Dr. ${doctorName}.`);
+            } catch (error) {
+                console.error('Error booking appointment:', error);
+                alert('An error occurred while booking the appointment.');
+            }
+        }
+
+        // Call fetchDoctors on page load
+        window.onload = fetchDoctors;
+    </script>
+</head>
+<body>
+    <h1>All Doctors</h1>
+
+    <!-- Search bar to search for doctors -->
+    <div class="search-bar">
+        <input type="text" id="searchName" placeholder="Search by name">
+        <input type="text" id="searchSpecialization" placeholder="Search by specialization">
+        <button onclick="searchDoctors()">Search</button>
+    </div>
+
+    <!-- Table to display doctor details -->
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Specialization</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Location</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="doctorTableBody">
+            <!-- Doctor details will be inserted here -->
+        </tbody>
+    </table>
+
+    <!-- Message to show when a doctor is booked -->
+    <div id="bookingMessage" class="message"></div>
+</body>
+</html>
